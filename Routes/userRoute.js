@@ -7,6 +7,8 @@ const {
   getLoginPage,
   getSignUp,
   handleLogin,
+  optGen,
+  passwordReset,
 } = require("../controllers/userController");
 const passport = require("passport");
 const isExists = require("../middlewares/Validate");
@@ -32,5 +34,11 @@ res.send({user:req.user,msg:"welcome"})
 })
 
 userRoute.get("/signup", getSignUp);
+
+
+// opt
+
+userRoute.post("/otp", optGen)
+userRoute.post("/password-reset",passwordReset)
 
 module.exports = userRoute;

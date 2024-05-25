@@ -4,6 +4,7 @@ const userRoute = require("./Routes/userRoute");
 const session = require("express-session");
 const localStrategyInitializer = require("./middlewares/userValidate");
 const passport = require("passport");
+const productRoute = require("./Routes/product.route");
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -15,6 +16,7 @@ localStrategyInitializer(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/user", userRoute);
+app.use("/product",productRoute)
 app.get("/", (req, res) => {
   res.render("index");
 });

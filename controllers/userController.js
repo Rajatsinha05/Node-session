@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const sendMail = require("../service/mail");
+const Product = require("../models/product");
 
 const handlePost = async (req, res) => {
   try {
@@ -16,7 +18,7 @@ const handlePost = async (req, res) => {
 
 const handleGet = async (req, res) => {
   try {
-    let users = await User.findAll();
+    let users = await User.findAll({include:Product});
 
     res.send(users);
   } catch (error) {
@@ -70,6 +72,41 @@ const handleLogin = async (req, res) => {
   res.send(user);
 };
 
+
+let map=new Map();
+const optGen=async(req,res)=>{
+
+  let{email} = req.body;
+  let user = await User.findOne({ where: { email} });
+  if(!user){
+    res.send("user not found")
+  }
+  let otp=Math.round(Math.random()*10000)
+  map.set(email,otp)
+  await sendMail(email,otp)
+  res.send("otp sent successfully")
+}
+
+
+const passwordReset = async(req, res)=>{
+let {email,password,otp} = req.body
+if(map.has(email)){
+  let oldOtp=map.get(email)
+  if(oldOtp==otp){
+    let hashPassword = await bcrypt.hash(password, 10);
+    let user=await User.findOne({where:{email}})
+    user.update({password:hashPassword})
+
+    res.send("password updated successfully")
+  }else{
+    res.send("otp not match")
+  }
+
+}else{
+  res.send("email not found")
+}
+
+}
 module.exports = {
   handlePost,
   handleGet,
@@ -78,4 +115,6 @@ module.exports = {
   getLoginPage,
   getSignUp,
   handleLogin,
+  optGen,
+  passwordReset
 };
