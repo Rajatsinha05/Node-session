@@ -9,7 +9,6 @@ const localStrategyInitializer = (passport) => {
       async (email, password, done) => {
         let user = await User.findOne({ where: { email: email } });
 
-        
         if (!user) {
           return done(null, false);
         }
