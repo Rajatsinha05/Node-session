@@ -10,6 +10,9 @@ const {
   optGen,
   passwordReset,
 } = require("../controllers/userController");
+
+const {ApiSignup, ApiLogin} = require("../controllers/Api/UserApi")
+
 const passport = require("passport");
 const isExists = require("../middlewares/Validate");
 
@@ -29,6 +32,7 @@ userRoute.post("/passportLogin", passport.authenticate("local"), (req, res) => {
 
 userRoute.get("/admin",isExists,(req, res) => {
 
+  
 
 res.send({user:req.user,msg:"welcome"})
 })
@@ -38,7 +42,16 @@ userRoute.get("/signup", getSignUp);
 
 // opt
 
+
 userRoute.post("/otp", optGen)
 userRoute.post("/password-reset",passwordReset)
+
+
+
+
+
+// api
+userRoute.post("/api/signup",ApiSignup)
+userRoute.post("/api/login",ApiLogin)
 
 module.exports = userRoute;

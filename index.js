@@ -5,7 +5,9 @@ const session = require("express-session");
 const localStrategyInitializer = require("./middlewares/userValidate");
 const passport = require("passport");
 const productRoute = require("./Routes/product.route");
+const cors=require('cors');
 const app = express();
+app.use(cors())
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use(express.static("public"));

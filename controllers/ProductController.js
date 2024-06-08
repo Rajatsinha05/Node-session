@@ -1,16 +1,16 @@
 const Product = require("../models/product");
 const User = require("../models/user");
-
 const createProduct = async (req, res) => {
   let product = await Product.create(req.body);
   res.send(product);
 };
 
 const getProducts = async (req, res) => {
-  let products = await Product.findAll({
-    include: User,
-    where: { UserId: req.body.UserId },
-  });
+  // let products = await Product.findAll({
+  //   include: User,
+  //   where: { UserId: req.body.UserId },
+  // });
+  let products=await Product.findAll();
   res.send(products);
 };
 

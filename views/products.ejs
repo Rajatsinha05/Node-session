@@ -30,19 +30,16 @@
       </thead>
       <tbody>
         <% products.map((ele)=>{ %>
-
-         <tr>
-            <td><%= ele.title %></td>
-            <td><%= ele.price %></td>
-            <td><%= ele.image %></td>
-            <td><%= ele.category %></td>
-            <td>Edit</td>
-            <td><a href="/product/<%= ele.id %>">Delete</a></td>
-         </tr> 
-
-
-       <% }) %>
-
+        <tr>
+          <td><%= ele.title %></td>
+          <td><%= ele.price %></td>
+          <td><%= ele.image %></td>
+          <td><%= ele.category %></td>
+          <td>Edit</td>
+          <td><a href="/product/<%= ele.id %>">Delete</a></td>
+        </tr>
+        <% }) %>
+        
       </tbody>
     </table>
   </body>

@@ -4,8 +4,8 @@ const isLogin = require("../middlewares/loginChecker");
 
 const productRoute=Router()
 
-productRoute.get('/',isLogin,getProducts)
-productRoute.post('/',isLogin,createProduct)
+productRoute.get('/',getProducts)
+productRoute.post('/',createProduct)
 productRoute.get("/add",isLogin,addProduct)
 productRoute.get("/products",isLogin,getProductPage)
 
